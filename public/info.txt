@@ -1,0 +1,1 @@
+1. react is known as spa(single page application) framework --everything is routed through a single file, that is index.html.
