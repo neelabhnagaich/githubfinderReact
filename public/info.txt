@@ -1,1 +1,160 @@
 1. react is known as spa(single page application) framework --everything is routed through a single file, that is index.html.
+
+concepts=--------
+1. JSX
+    --------------------------
+    JSX is a mix of HTML and JavaScript and tries to get the best out of both these languages.
+    camel case notation for html and css attributes like classes( className)
+    react.Fragments
+
+2. components and props
+    -----------------------------
+    class based component
+    funtional components  using when no states are present
+    State is similar to props, but it is private and fully controlled by the component.
+    proptypes
+    props are nothing but objects which are used to pass data from one component to another.
+    props can be any type of data—integers, objects or even arrays. They can even be React components
+    default props
+    props are immutable
+    props are passed through parent components
+
+3. states
+   ----------------------------------
+   value of states are changes using setState({ loading: true })
+   life cycle methods
+        ----------------------
+        componentDidMount()  when component is loaded
+        componentWillUnmount() 
+    
+    props vs states
+    --------------------------------
+    If we used only props and passed them from one component to another, they wouldn’t make our component interactive as we cannot change the props. Remember, props are read-only. Thus, React state comes into the picture, and that can be updated.
+    What is really important to note is that whenever our state changes, the corresponding React component is re-rendered. Also, state can be passed down as props to any child component. 
+    Once state changes for a component which is passed as props down to the child component, then we see the app re-render again.
+
+    passing props from child component to parent
+    ----------------------------------------------
+    here is no way to pass props from a child component to a parent component. However, we can always pass around functions from the parent to child component. The child component can then make use of these functions. The function can then update the state in a parent component, 
+    Once our state gets changed, it is passed down as props again. Thus, all the relevant components get rendered again. A similar pattern can be used when we have multiple page components in our React app. If we want to pass data from one page to the other, we can lift up the state to the parent component (in most cases, the App component). The parent would have all the individual page components as its child. Thus, the data will be managed as state in the topmost level component and at the same time, we can pass it to any of the child components.
+
+
+4. environment variables
+    ---------------------------------
+    a file .env.local is create
+    and values are accessed using " process.env.REACT_APP_GITHUB_CLIENT_ID " 
+
+5. Routing
+--------------------------------
+Routing is the ability to move between different parts of an application when a user enters a URL or clicks an element (link, button, icon, image etc) within the application.
+There are two types of router object.
+
+- BrowserRouter
+- HashRouter
+If we want to handle the dynamic request then use BrowserRouter and if we want to serve the static request then use HashRouter.
+ To extend your applications by adding routing capabilities, you will use the popular React-Router library. It’s worth noting that this library has three variants:
+=> react-router: the core library
+=> react-router-dom: a variant of the core library meant to be used for web applications
+=> react-router-native: a variant of the core library used with react native in the development of Android and iOS applications.   
+
+---> Routes
+----------------------
+The <Route/> component is one of the most important building blocks in the React Router package. It renders the appropriate user interface when the current location matches the route’s path. The path is a prop on the <Route/> component that describes the pathname that the route should match as shown in the example that follows
+<Route path=”/items”/>
+This route is matched when the pathname is /items or, all other paths that start with /items/ for example /items/2.
+ If the intention is to strictly match only /items, the <Route/> component accepts an exact prop.
+ <Route exact path=”/items” />
+ The <Route/> component provides three props that can be used to determine which component to render:
+=> component
+=> render
+=> children
+
+Component prop-------
+
+The component prop defines the React element that will be returned by the Route when the path is matched.
+<Route 
+  exact 
+  path=”/items” 
+  component={Items}
+/>
+
+Render Prop----------
+
+The render prop provides the ability for inline rendering and passing extra props to the element. This prop expects a function that returns a React element when the current location matches the route’s path. Below are examples demonstrating the use of the render prop on a Route component.
+<Route 
+  exact 
+  path=”/items” 
+  render={() => (<div>List of Items</div>)}
+/>
+
+Switch
+--------------
+The react-router library also contains a <Switch/> component that is used to wrap multiple <Route/> components.
+The Switch component only picks the first matching route among all its children routes.
+<Switch>
+  <Route 
+    path=”/items” 
+    render={() => (<div><em>List of items</em></div>)}
+  />
+  <Route 
+    path=”/items/2" 
+    render={() => (<div>Item with id of 2</div>)}
+  />
+</Switch>
+
+
+Link
+---------------
+The react-router package also contains a <Link/> component that is used to navigate the different parts of an application by way of hyperlinks.
+ It is similar to HTML’s anchor element but the main difference is that using the Link component does not reload the page but rather, changes the UI.
+ 
+  <Link to=”/items”>Items</Link>
+
+  
+  URL Parameters with React Router
+  ---------------------------------------------
+URL parameters are a fundamental aspect of React Router and a fundamental aspect of building web applications. 
+URL parameters are parameters whose values are set dynamically in a page’s URL. This allows a route to render the same component while passing that component the dynamic portion of the URL so it can change based off of it.
+
+A practical example of this would be Twitter’s profile pages. If rendered by React Router, that route may look like this.
+
+<Route path='/:handle' component={Profile} />
+Then the Profile component would be able to access the dynamic handle from 
+->    props.match.params.handle.
+
+
+6. React Hooks
+------------------------
+A Hook is a special function that lets you “hook” into React features. For example, useState is a Hook that lets you
+Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class
+
+                  import React, { useState, useEffect } from 'react';
+                  import RecipeList from './components/RecipeList
+
+                  function App() {
+                    const url = useState(`https://api.myjson.com/bins/t7szj`)
+                    const [recipes, setRecipes] = useState([])
+
+                    const fetchRecipe = async () => {
+                      const recipeData = await fetch(url)
+                      const { recipes } = await recipeData.json()
+                      setRecipes(recipes)
+                    }
+
+                    useEffect(() => {
+                      fetchRecipe()
+                    })
+
+                    return (
+                      <div className="App">
+                        <RecipeList recipes={recipes}>
+                      </div>
+                    );
+                  }
+
+                  export default App;
+
+ We have imported useState and useEffect from React. These are the APIs exposed to us that enables us to use React Hook. 
+ the useState returns a pair of values to us. They are the current state and a function that updates it. So we get back [currentState, setStateFunction] from the use state.
+ Where Recipes is an array to hold our recipe data, setRecipe is the function that enables us to update the state, this is equivalent to this.setState in a class component.
+ 

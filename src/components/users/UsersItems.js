@@ -1,27 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const UsersItems = ({ user: { login, avator_url, html_url } }) => {
+const UsersItems = ({ user: { login, avatar_url, html_url } }) => {
   return (
     <div className='card text-center'>
       <img
-        src={avator_url}
+        src={avatar_url}
         alt='img'
         className='round-img'
         style={{ width: '60px' }}
       />
       <h3>{login}</h3>
       <div>
-        <a href={html_url} className='btn btn-dark btn-sm my-1'>
-          Login
-        </a>
+        <Link to={`/user/${login}`} className='btn btn-dark btn-sm my-1'>
+          More
+        </Link>
       </div>
     </div>
   );
 };
 
 UsersItems.propTypes = {
-  icon: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 export default UsersItems;
