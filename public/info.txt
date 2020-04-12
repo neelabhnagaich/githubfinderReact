@@ -158,3 +158,17 @@ Hooks are a new addition in React 16.8. They let you use state and other React f
  the useState returns a pair of values to us. They are the current state and a function that updates it. So we get back [currentState, setStateFunction] from the use state.
  Where Recipes is an array to hold our recipe data, setRecipe is the function that enables us to update the state, this is equivalent to this.setState in a class component.
  
+ 7. context API
+ ---------------------------------
+ current limitaions----
+Thereby each of these global properties, have to be mapped as props
+from intermediate components even though it may not be used 
+in-between. This is called props drilling and may introduce
+redundant mapping of props for complex application for multiple
+properties.
+                  <App /> → <Menu /> → <MenuItem />
+
+“Context provides a way to pass data through the component tree without having to pass props down manually at every level.”
+React’s Context API is introduced to address issue of props drilling, where higher order component’s context can be accessed by child component without mapping props in intermediate components.
+
+
